@@ -15,11 +15,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import br.com.eprecise.adapter.inbound.dtos.CreateStateRequestDTO;
 import br.com.eprecise.adapter.inbound.dtos.UpdateStateRequestDTO;
 import br.com.eprecise.adapter.inbound.utils.ParamUtils;
-import br.com.eprecise.application.inbound.city.FindCityByNameUseCasePort;
-import br.com.eprecise.application.inbound.city.inputs.CitySearchByNameInput;
 import br.com.eprecise.application.inbound.state.CreateStateUseCasePort;
 import br.com.eprecise.application.inbound.state.DeleteStateUseCasePort;
 import br.com.eprecise.application.inbound.state.GetAllStateUseCasePort;
@@ -33,6 +33,10 @@ import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
 import lombok.RequiredArgsConstructor;
 
+@Tag(
+    name = "States", 
+    description = "Permite realizar operações CRUD e consultas sobre a entidade 'State', incluindo criação, leitura, atualização e exclusão de registros."
+)
 @Path("/v1/states")
 @RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)

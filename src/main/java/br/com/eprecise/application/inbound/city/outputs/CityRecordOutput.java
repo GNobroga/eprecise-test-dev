@@ -5,8 +5,8 @@ import lombok.Value;
 
 @Value
 public class CityRecordOutput {
-    private String cityId;
-    private String cityName;
+    private String id;
+    private String name;
     private Long population;
     private StateRecordOutput state;
 }

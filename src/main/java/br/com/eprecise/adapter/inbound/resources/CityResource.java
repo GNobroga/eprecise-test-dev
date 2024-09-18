@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import br.com.eprecise.adapter.inbound.dtos.CreateCityRequestDTO;
 import br.com.eprecise.adapter.inbound.dtos.UpdateCityRequestDTO;
 import br.com.eprecise.adapter.inbound.utils.ParamUtils;
@@ -36,6 +38,10 @@ import br.com.eprecise.domain.pagination.Page;
 import br.com.eprecise.domain.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
 
+@Tag(
+    name = "Cities", 
+    description = "Permite realizar operações CRUD e consultas sobre a entidade 'City', incluindo criação, leitura, atualização e exclusão de registros."
+)
 @Path("/v1/cities")
 @Produces(MediaType.APPLICATION_JSON)
 @RequiredArgsConstructor
@@ -54,7 +60,7 @@ public class CityResource {
     private final GetCityByStateIdUseCasePort getCityByStateIdUseCasePort;
 
     private final FindCityByNameUseCasePort findCityByNameUseCasePort;
-
+    
     @GET
     public Page<CityRecordOutput> getAll(@Context UriInfo uriInfo) {
         return getAllCityUseCasePort.execute(new SearchCriteria(ParamUtils.getParams(uriInfo.getQueryParameters())));

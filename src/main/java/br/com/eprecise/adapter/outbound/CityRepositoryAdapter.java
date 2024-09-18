@@ -54,8 +54,8 @@ public class CityRepositoryAdapter implements CityRepositoryPort {
         cityRepositoryJpa.save(entity);
         return entity.toDomain();
     }
-
-     @Override
+    
+    @Override
     public List<City> findAll(SearchCriteria searchCriteria) {
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         final CriteriaQuery<CityEntityJpa> query = cb.createQuery(CityEntityJpa.class);

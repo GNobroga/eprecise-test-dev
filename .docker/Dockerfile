@@ -1,15 +1,27 @@
-FROM maven:3.8.1-openjdk-8-slim as builder
+FROM maven:3.8.1-openjdk-8-slim
 
 COPY . .
 
-RUN mvn clean install -DskipTests -Dquarkus.package.uber-jar=true
-
-FROM openjdk:8-jdk-slim
-
-WORKDIR /workspace
-
-COPY --from=builder ./target/teste-dev-pleno-1.0.0-SNAPSHOT-runner.jar .
+RUN mvn install -DskipTests
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "teste-dev-pleno-1.0.0-SNAPSHOT-runner.jar"]
+ENTRYPOINT ["mvn", "quarkus:dev", "-Dquarkus.profile=local"]
+
+## Código antigo
+
+# FROM maven:3.8.1-openjdk-8-slim as builder
+
+# COPY . .
+
+# RUN mvn clean install -DskipTests
+
+# FROM openjdk:8-jdk-slim
+
+# WORKDIR /app
+
+# COPY --from=builder ./target .
+
+# EXPOSE 8080
+
+# ENTRYPOINT ["java", "-jar", "teste-dev-pleno-1.0.0-SNAPSHOT-runner.jar"]
