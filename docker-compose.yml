@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  postgres:
+    container_name: eprecise-db
+    image: postgres
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev 
+      POSTGRES_DB: eprecise
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: eprecise-pgadmin 
+    image: dpage/pgadmin4 
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@dev.com
+      PGADMIN_DEFAULT_PASSWORD: dev 
+    ports:
+      - 15000:80
+
