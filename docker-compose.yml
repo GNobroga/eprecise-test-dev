@@ -2,15 +2,15 @@ version: '3'
 
 services:
 
-  backend:
-    container_name: eprecise-backend
-    build:
-      context: ./
-      dockerfile: .docker/Dockerfile
-    ports:
-      - 8080:8080
-    environment:
-      QUARKUS_PROFILE: local
+  # backend:
+  #   container_name: eprecise-backend
+  #   build:
+  #     context: ./
+  #     dockerfile: .docker/Dockerfile
+  #   ports:
+  #     - 8080:8080
+  #   environment:
+  #     QUARKUS_PROFILE: local
 
   postgres:
     container_name: eprecise-db

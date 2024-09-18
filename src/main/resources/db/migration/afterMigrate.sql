@@ -1,26 +1,5 @@
-DROP TABLE IF EXISTS tb_cities;
-DROP TABLE IF EXISTS tb_states;
-
-CREATE TABLE tb_states (
-    id VARCHAR(100) PRIMARY KEY, 
-    name VARCHAR(255) NOT NULL,                  
-    abbreviation VARCHAR(10) NOT NULL UNIQUE,     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-    updated_at TIMESTAMP                          
-);
-
-CREATE TABLE tb_cities (
-    id VARCHAR(100) PRIMARY KEY,       
-    name VARCHAR(255) NOT NULL,       
-    state_id VARCHAR(100) NOT NULL, 
-    population BIGINT,                 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   
-    updated_at TIMESTAMP,
-    CONSTRAINT fk_state
-        FOREIGN KEY (state_id) 
-        REFERENCES tb_states(id)
-);
-
+DELETE FROM tb_cities;
+DELETE FROM tb_states;
 
 INSERT INTO tb_states (id, name, abbreviation, updated_at) VALUES
 ('123e4567-e89b-12d3-a456-426614174010', 'Acre', 'AC', CURRENT_DATE),
