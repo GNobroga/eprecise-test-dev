@@ -1,7 +1,7 @@
 package br.com.eprecise.application.usecases.state;
 
-import br.com.eprecise.application.in.state.DeleteStateUseCasePort;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.state.DeleteStateUseCasePort;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

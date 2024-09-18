@@ -1,9 +1,9 @@
 package br.com.eprecise.application.usecases.state;
 
-import br.com.eprecise.application.in.state.CreateStateUseCasePort;
-import br.com.eprecise.application.in.state.inputs.CreateStateInput;
-import br.com.eprecise.application.in.state.outputs.StateIdOutput;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.state.CreateStateUseCasePort;
+import br.com.eprecise.application.inbound.state.inputs.CreateStateInput;
+import br.com.eprecise.application.inbound.state.outputs.StateIdOutput;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.exceptions.AbbreviationAlreadyExistsException;
 import br.com.eprecise.domain.exceptions.DomainInvalidException;

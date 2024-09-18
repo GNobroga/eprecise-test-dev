@@ -2,10 +2,10 @@ package br.com.eprecise.application.usecases.city;
 
 import java.util.Objects;
 
-import br.com.eprecise.application.in.city.UpdateCityUseCasePort;
-import br.com.eprecise.application.in.city.inputs.UpdateCityInput;
-import br.com.eprecise.application.out.CityRepositoryPort;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.city.UpdateCityUseCasePort;
+import br.com.eprecise.application.inbound.city.inputs.UpdateCityInput;
+import br.com.eprecise.application.outbound.CityRepositoryPort;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.city.City;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.exceptions.DomainInvalidException;

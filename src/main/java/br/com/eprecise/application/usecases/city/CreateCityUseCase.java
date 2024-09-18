@@ -4,12 +4,11 @@ import java.util.Objects;
 
 import javax.persistence.EntityExistsException;
 
-
-import br.com.eprecise.application.in.city.CreateCityUseCasePort;
-import br.com.eprecise.application.in.city.inputs.CreateCityInput;
-import br.com.eprecise.application.in.city.outputs.CityIdOutput;
-import br.com.eprecise.application.out.CityRepositoryPort;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.city.CreateCityUseCasePort;
+import br.com.eprecise.application.inbound.city.inputs.CreateCityInput;
+import br.com.eprecise.application.inbound.city.outputs.CityIdOutput;
+import br.com.eprecise.application.outbound.CityRepositoryPort;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.city.City;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.exceptions.DomainInvalidException;

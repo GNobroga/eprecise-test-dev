@@ -3,9 +3,9 @@ package br.com.eprecise.application.usecases.state;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.eprecise.application.in.state.GetAllStateUseCasePort;
-import br.com.eprecise.application.in.state.outputs.StateRecordOutput;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.state.GetAllStateUseCasePort;
+import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
 import br.com.eprecise.domain.pagination.Pagination;

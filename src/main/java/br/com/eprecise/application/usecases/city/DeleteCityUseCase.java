@@ -1,7 +1,7 @@
 package br.com.eprecise.application.usecases.city;
 
-import br.com.eprecise.application.in.city.DeleteCityUseCasePort;
-import br.com.eprecise.application.out.CityRepositoryPort;
+import br.com.eprecise.application.inbound.city.DeleteCityUseCasePort;
+import br.com.eprecise.application.outbound.CityRepositoryPort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

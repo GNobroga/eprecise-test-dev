@@ -1,8 +1,8 @@
 package br.com.eprecise.application.usecases.city;
 
-import br.com.eprecise.application.in.city.GetCityRecordCountUseCasePort;
-import br.com.eprecise.application.in.city.outputs.CityRecordCountOutput;
-import br.com.eprecise.application.out.CityRepositoryPort;
+import br.com.eprecise.application.inbound.city.GetCityRecordCountUseCasePort;
+import br.com.eprecise.application.inbound.city.outputs.CityRecordCountOutput;
+import br.com.eprecise.application.outbound.CityRepositoryPort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

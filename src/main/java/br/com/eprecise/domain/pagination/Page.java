@@ -2,7 +2,7 @@ package br.com.eprecise.domain.pagination;
 
 import java.util.List;
 
-import br.com.eprecise.application.in.state.outputs.StateRecordOutput;
+import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

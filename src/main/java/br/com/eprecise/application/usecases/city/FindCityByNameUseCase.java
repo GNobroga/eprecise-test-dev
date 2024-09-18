@@ -3,12 +3,12 @@ package br.com.eprecise.application.usecases.city;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.eprecise.application.in.city.FindCityByNameUseCasePort;
-import br.com.eprecise.application.in.city.inputs.CitySearchByNameInput;
-import br.com.eprecise.application.in.city.outputs.CityRecordOutput;
-import br.com.eprecise.application.in.state.outputs.StateRecordOutput;
-import br.com.eprecise.application.out.CityRepositoryPort;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.city.FindCityByNameUseCasePort;
+import br.com.eprecise.application.inbound.city.inputs.CitySearchByNameInput;
+import br.com.eprecise.application.inbound.city.outputs.CityRecordOutput;
+import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
+import br.com.eprecise.application.outbound.CityRepositoryPort;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.pagination.Page;
 import br.com.eprecise.domain.pagination.Pagination;

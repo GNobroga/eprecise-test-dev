@@ -2,9 +2,9 @@ package br.com.eprecise.application.usecases.state;
 
 import java.util.Objects;
 
-import br.com.eprecise.application.in.state.UpdateStateUseCasePort;
-import br.com.eprecise.application.in.state.inputs.UpdateStateInput;
-import br.com.eprecise.application.out.StateRepositoryPort;
+import br.com.eprecise.application.inbound.state.UpdateStateUseCasePort;
+import br.com.eprecise.application.inbound.state.inputs.UpdateStateInput;
+import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.exceptions.AbbreviationAlreadyExistsException;
 import br.com.eprecise.domain.exceptions.EntityNotFoundException;
