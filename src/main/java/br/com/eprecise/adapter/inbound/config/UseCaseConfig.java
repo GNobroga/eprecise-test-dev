@@ -67,7 +67,7 @@ public class UseCaseConfig {
     }
 
     // City Use Cases
-     @Produces
+    @Produces
     private CreateCityUseCasePort createCityUseCasePort() {
         return new CreateCityUseCase(cityRepositoryPort, stateRepositoryPort);
     }
@@ -89,7 +89,7 @@ public class UseCaseConfig {
 
     @Produces
     private GetCityByStateIdUseCasePort getCityByStateIdUseCasePort() {
-        return new GetCityByStateIdUseCase(cityRepositoryPort, stateRepositoryPort);
+        return new GetCityByStateIdUseCase(stateRepositoryPort, getAllCityUseCasePort());
     }
 
     @Produces
@@ -99,6 +99,6 @@ public class UseCaseConfig {
 
     @Produces
     private FindCityByNameUseCasePort findCityByNameUseCasePort() {
-        return new FindCityByNameUseCase(cityRepositoryPort, stateRepositoryPort);
+        return new FindCityByNameUseCase(getAllCityUseCasePort());
     }
 }

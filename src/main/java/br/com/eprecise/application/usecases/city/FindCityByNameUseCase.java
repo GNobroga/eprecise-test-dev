@@ -1,40 +1,35 @@
 package br.com.eprecise.application.usecases.city;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.com.eprecise.application.inbound.city.FindCityByNameUseCasePort;
+import br.com.eprecise.application.inbound.city.GetAllCityUseCasePort;
 import br.com.eprecise.application.inbound.city.inputs.CitySearchByNameInput;
 import br.com.eprecise.application.inbound.city.outputs.CityRecordOutput;
-import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
-import br.com.eprecise.application.outbound.CityRepositoryPort;
-import br.com.eprecise.application.outbound.StateRepositoryPort;
-import br.com.eprecise.domain.entities.state.State;
+import br.com.eprecise.domain.exceptions.InsufficientCharactersException;
+import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
-import br.com.eprecise.domain.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class FindCityByNameUseCase implements FindCityByNameUseCasePort {
-    
-    private final CityRepositoryPort cityRepositoryPort;
 
-    private final StateRepositoryPort stateRepositoryPort;
+    private final GetAllCityUseCasePort getAllCityUseCasePort;
 
     @Override
     public Page<CityRecordOutput> execute(CitySearchByNameInput in) {
-        final Pagination pagination = in.getPagination();
-        final List<CityRecordOutput> items = cityRepositoryPort.findByName(in.getCityName(), pagination).stream()
-            .map(city -> {
-                final State state = stateRepositoryPort.findById(city.getStateId());
-                return new CityRecordOutput(
-                    city.getId().getUuid().toString(), 
-                    city.getName(), 
-                    city.getPopulation(), 
-                    new StateRecordOutput(state.getId().getUuid().toString(), state.getName(), state.getAbbreviation()));
-            }).collect(Collectors.toList());
-        final Page<CityRecordOutput> page = Page.create(pagination, items, cityRepositoryPort.count());
-        return page;
+        if (in.getCityName().length() < 3) {
+            throw new InsufficientCharactersException("City name must be at least 3 characters long.");
+        }
+
+        final Map<String, String> params = new HashMap<>();
+        params.put("like_filters", String.format("name=%s", in.getCityName()));
+
+        final SearchCriteria searchCriteria = new SearchCriteria(params);
+        searchCriteria.setPagination(in.getPagination());
+      
+        return getAllCityUseCasePort.execute(searchCriteria);
     }
     
 }

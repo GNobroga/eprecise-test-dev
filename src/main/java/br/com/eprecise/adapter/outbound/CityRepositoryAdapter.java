@@ -16,11 +16,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-
 import br.com.eprecise.adapter.outbound.jpa.entities.CityEntityJpa;
 import br.com.eprecise.adapter.outbound.jpa.repositories.CityRepositoryJpa;
 import br.com.eprecise.application.outbound.CityRepositoryPort;
@@ -122,30 +117,4 @@ public class CityRepositoryAdapter implements CityRepositoryPort {
     public boolean existsByStateAbbreviationAndName(String stateAbbreviation, String cityName) {
         return cityRepositoryJpa.existsByStateAbbreviationAndName(stateAbbreviation, cityName);
     }
-
-    // Cidades: GET por estado (pesquisa com paginação)
-    @Override
-    public List<City> findByStateId(String stateId, Pagination pagination) {
-        final Sort.Direction sortDirection = OrderType.ASC.equals(pagination.getPageOrder()) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        final Pageable pageable = PageRequest.of(
-            pagination.getPageNumber() - 1, 
-            pagination.getPageSize(), 
-            Sort.by(sortDirection, SORT_BY)
-        );
-        final Page<CityEntityJpa> page = cityRepositoryJpa.findByStateId(stateId, pageable);
-        return page.getContent().stream().map(CityEntityJpa::toDomain).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<City> findByName(String name, Pagination pagination) {
-        final Sort.Direction sortDirection = OrderType.ASC.equals(pagination.getPageOrder()) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        final Pageable pageable = PageRequest.of(
-            pagination.getPageNumber() - 1, 
-            pagination.getPageSize(), 
-            Sort.by(sortDirection, SORT_BY)
-        );
-        final Page<CityEntityJpa> page = cityRepositoryJpa.findCitiesByNameWithLengthGreaterThanThree(name, pageable);
-        return page.getContent().stream().map(CityEntityJpa::toDomain).collect(Collectors.toList());
-    }
-    
 }

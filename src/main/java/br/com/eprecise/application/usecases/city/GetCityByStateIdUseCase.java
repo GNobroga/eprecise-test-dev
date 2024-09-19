@@ -1,40 +1,37 @@
 package br.com.eprecise.application.usecases.city;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
+import br.com.eprecise.application.inbound.city.GetAllCityUseCasePort;
 import br.com.eprecise.application.inbound.city.GetCityByStateIdUseCasePort;
 import br.com.eprecise.application.inbound.city.inputs.CitySearchByStateInput;
 import br.com.eprecise.application.inbound.city.outputs.CityRecordOutput;
-import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
-import br.com.eprecise.application.outbound.CityRepositoryPort;
 import br.com.eprecise.application.outbound.StateRepositoryPort;
-import br.com.eprecise.domain.entities.state.State;
+import br.com.eprecise.domain.exceptions.EntityNotFoundException;
+import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
-import br.com.eprecise.domain.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class GetCityByStateIdUseCase implements GetCityByStateIdUseCasePort {
 
-    private final CityRepositoryPort cityRepositoryPort;
-
     private final StateRepositoryPort stateRepositoryPort;
+
+    private final GetAllCityUseCasePort getAllCityUseCasePort;
 
     @Override
     public Page<CityRecordOutput> execute(CitySearchByStateInput in) {
-         final Pagination pagination = in.getPagination();
-        final List<CityRecordOutput> items = cityRepositoryPort.findByStateId(in.getStateId(), in.getPagination()).stream()
-            .map(city -> {
-                final State state = stateRepositoryPort.findById(city.getStateId());
-                return new CityRecordOutput(
-                    city.getId().getUuid().toString(), 
-                    city.getName(), 
-                    city.getPopulation(), 
-                    new StateRecordOutput(state.getId().getUuid().toString(), state.getName(), state.getAbbreviation()));
-            }).collect(Collectors.toList());
-        final Page<CityRecordOutput> page = Page.create(pagination, items, cityRepositoryPort.count());
-        return page;
+        if (!stateRepositoryPort.existsById(in.getStateId())) {
+            throw new EntityNotFoundException("State with ID " + in.getStateId() + " not found.");
+        }
+        final Map<String, String> params = new HashMap<>();
+        params.put("like_filters", String.format("state.id=%s", in.getStateId()));
+
+        final SearchCriteria searchCriteria = new SearchCriteria(params);
+        searchCriteria.setPagination(in.getPagination());
+
+        return getAllCityUseCasePort.execute(searchCriteria);
     }
     
 }

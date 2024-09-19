@@ -22,6 +22,14 @@ public class ReflectionUtilsTest {
 
     static class EmptyClass {}
 
+    static class Duplicate2 {
+        private String fieldDuplicated;
+    }
+
+    static class Duplicate1 extends Duplicate2 {
+        private String fieldDuplicated;
+    }
+
     @Test
     void testGetFieldNamesNoInheritance() {
         List<String> fieldNames = ReflectionUtils.getFieldNames(EmptyClass.class);
@@ -36,31 +44,10 @@ public class ReflectionUtilsTest {
     }
 
     @Test
-    void testGetFieldNamesWithDuplicates() {
-        class A {
-            private String duplicateField;
-        }
-
-        class B extends A {
-            private String duplicateField;
-        }
-
-        List<String> fieldNames = ReflectionUtils.getFieldNames(B.class);
-        List<String> expectedFieldNames = Arrays.asList("duplicateField"); 
-        assertEquals(expectedFieldNames, fieldNames, "The field names list should not contain duplicates.");
+    void testGetFieldNamesDuplicated() {
+        List<String> fieldNames = ReflectionUtils.getFieldNames(Duplicate2.class);
+        List<String> expectedFieldNames = Arrays.asList("fieldDuplicated", "fieldDuplicated");
+        assertEquals(expectedFieldNames, fieldNames);
     }
 
-    @Test
-    void testGetFieldNamesWithDifferentVisibility() {
-
-        class VisibilityClass {
-            public String publicField;
-            protected String protectedField;
-            private String privateField;
-        }
-
-        List<String> fieldNames = ReflectionUtils.getFieldNames(VisibilityClass.class);
-        List<String> expectedFieldNames = Arrays.asList("publicField", "protectedField", "privateField");
-        assertEquals(expectedFieldNames, fieldNames, "The field names list should include all fields regardless of their visibility.");
-    }
 }

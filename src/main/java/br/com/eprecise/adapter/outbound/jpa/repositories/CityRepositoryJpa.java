@@ -12,8 +12,6 @@ public interface CityRepositoryJpa extends JpaRepository<CityEntityJpa, String> 
     @Query("SELECT COUNT(c) > 0 FROM CityEntityJpa c WHERE c.state.abbreviation = ?1 AND c.name = ?2")
     boolean existsByStateAbbreviationAndName(String stateAbbreviation, String cityName);
 
-    Page<CityEntityJpa> findByStateId(String stateId, Pageable pageable);
-
-    @Query("FROM CityEntityJpa c WHERE LENGTH(c.name) >= 3 AND LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    @Query("FROM CityEntityJpa c WHERE LENGTH(:name) >= 3 AND LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     Page<CityEntityJpa> findCitiesByNameWithLengthGreaterThanThree(@Param("name") String name, Pageable pageable);
 }

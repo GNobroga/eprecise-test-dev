@@ -119,7 +119,7 @@ public class StateResource {
     @POST
     public Response create(@Valid CreateStateRequestDTO request, @Context UriInfo uriInfo) {
         final StateIdOutput output = createStateUseCasePort.execute(new CreateStateInput(request.getName(), request.getAbbreviation()));
-        final URI uri = uriInfo.getAbsolutePathBuilder().path("/{id}").resolveTemplate("id", output.getId()).build();
+        final URI uri = uriInfo.getAbsolutePathBuilder().path("/{id}").resolveTemplate("id", output.getStateId()).build();
         return Response
             .status(Response.Status.CREATED)
             .location(uri)

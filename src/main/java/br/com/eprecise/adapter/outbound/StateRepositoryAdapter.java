@@ -105,5 +105,10 @@ public class StateRepositoryAdapter implements StateRepositoryPort {
             .map(StateEntityJpa::toDomain)
             .get();
     }
+
+    @Override
+    public boolean existsById(String identifier) {
+        return stateRepositoryJpa.existsById(identifier);
+    }
     
 }
