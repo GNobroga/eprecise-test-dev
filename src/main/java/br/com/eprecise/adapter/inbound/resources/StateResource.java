@@ -3,6 +3,7 @@ package br.com.eprecise.adapter.inbound.resources;
 import java.net.URI;
 
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -47,6 +48,7 @@ import lombok.RequiredArgsConstructor;
 @Path("/api/v1/states")
 @RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class StateResource {
 
     private final GetAllStateUseCasePort getAllStateUseCasePort;
