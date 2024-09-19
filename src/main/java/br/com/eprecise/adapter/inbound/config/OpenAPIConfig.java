@@ -8,7 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 
 @OpenAPIDefinition(
     info = @Info(
-        title="E-precise",
+        title="E-precise - Cities and States",
         version = "1.0.0",
         contact = @Contact(
             name = "Gabriel Cardoso Girarde",

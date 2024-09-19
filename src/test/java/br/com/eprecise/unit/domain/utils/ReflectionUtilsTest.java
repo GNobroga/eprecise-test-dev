@@ -1,4 +1,4 @@
-package br.com.eprecise.domain.utils;
+package br.com.eprecise.unit.domain.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,13 +8,18 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.eprecise.domain.utils.ReflectionUtils;
+import lombok.Getter;
+
 public class ReflectionUtilsTest {
    
+    @Getter
     static class BaseClass {
         private String baseField1;
         protected Integer baseField2;
     }
 
+    @Getter
     static class SubClass extends BaseClass {
         private String subField1;
         public Double subField2;
@@ -22,10 +27,12 @@ public class ReflectionUtilsTest {
 
     static class EmptyClass {}
 
+    @Getter
     static class Duplicate2 {
         private String fieldDuplicated;
     }
 
+    @Getter
     static class Duplicate1 extends Duplicate2 {
         private String fieldDuplicated;
     }

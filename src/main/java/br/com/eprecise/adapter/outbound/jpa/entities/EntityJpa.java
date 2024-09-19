@@ -1,7 +1,6 @@
 package br.com.eprecise.adapter.outbound.jpa.entities;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

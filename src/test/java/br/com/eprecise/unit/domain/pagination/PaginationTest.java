@@ -1,10 +1,13 @@
-package br.com.eprecise.domain.pagination;
+package br.com.eprecise.unit.domain.pagination;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import br.com.eprecise.domain.pagination.OrderType;
+import br.com.eprecise.domain.pagination.Pagination;
 
 public class PaginationTest {
 

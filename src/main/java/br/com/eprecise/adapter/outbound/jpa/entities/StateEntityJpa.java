@@ -1,6 +1,10 @@
 package br.com.eprecise.adapter.outbound.jpa.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.eprecise.domain.entities.state.State;
@@ -20,6 +24,9 @@ public class StateEntityJpa extends EntityJpa {
     
     private String name;
     private String abbreviation;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "state")
+    private List<CityEntityJpa> cities;
 
     public static StateEntityJpa from(State source) {
         return StateEntityJpa.builder()

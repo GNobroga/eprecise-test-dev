@@ -238,7 +238,7 @@ public class CityResource {
     @Path("/{id}")
     public Response update(@PathParam("id") String id, @Valid UpdateCityRequestDTO request) {
         updateCityUseCasePort.execute(new UpdateCityInput(id, request.getName(), request.getStateAbbreviation(), request.getPopulation()));
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @Operation(

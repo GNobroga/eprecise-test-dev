@@ -1,5 +1,7 @@
 # Teste para Desenvolvedor
 
+Video demonstrativo -> <a href="https://youtu.be/EUVrEDW8vqA">Ver video</a>
+
 ## Requisitos
 
 - Quarkus ✅
@@ -9,9 +11,43 @@
 
 ## Diferencial
 
-- Testes Unitários ❌
-- Testes de Integração ❌
+- Testes Unitários (Parcial) ✅
+- Testes de Integração (Parcial) ✅
 - Criação de container com a API desenvolvida ✅
+
+
+## Como executar o projeto?
+
+Se o Docker estiver instalado em sua máquina, você pode iniciar os serviços do projeto com o Docker Compose usando o seguinte comando na raiz do projeto:
+
+```bash
+    docker compose up -d
+```
+
+Caso não tenha o Docker disponível, siga estas etapas alternativas:
+
+- Execute uma instância do PostgreSQL na porta 5432 em seu ambiente local. Certifique-se de configurar o banco de dados conforme necessário para a sua aplicação.
+
+
+Execute a aplicação em modo desenvolvimento:
+
+- Utilize o comando Maven para rodar a aplicação Quarkus em modo desenvolvimento:
+
+```bash
+    ./mvnw quarkus:dev
+```
+
+A aplicação irá rodar no endereço: `http://localhost:8080`
+
+
+## Swagger
+
+Link do Swagger para facilitar a leitura dos **Endpoints**.
+
+```bash
+    http://localhost:8080/swagger-ui/index.html
+```
+
 
 ## Funcionalidades
 
@@ -130,38 +166,6 @@ Permite pesquisar cidades pelo nome.
 #### /api/v1/cities/count (GET) - (Obter)
 
 Permite obter a quantidade de cidades cadastradas.
-
-## Como executar o projeto?
-
-Se o Docker estiver instalado em sua máquina, você pode iniciar os serviços do projeto com o Docker Compose usando o seguinte comando na raiz do projeto:
-
-```bash
-    docker compose up -d
-```
-
-Caso não tenha o Docker disponível, siga estas etapas alternativas:
-
-- Execute uma instância do PostgreSQL na porta 5432 em seu ambiente local. Certifique-se de configurar o banco de dados conforme necessário para a sua aplicação.
-
-
-Execute a aplicação em modo desenvolvimento:
-
-- Utilize o comando Maven para rodar a aplicação Quarkus em modo desenvolvimento:
-
-```bash
-    ./mvnw quarkus:dev
-```
-
-A aplicação irá rodar no endereço: `http://localhost:8080`
-
-
-## Swagger
-
-Link do Swagger para facilitar a leitura dos **Endpoints**.
-
-```bash
-    http://localhost:8080/swagger-ui/index.html
-```
 
 ## Tecnologias
 

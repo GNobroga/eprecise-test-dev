@@ -19,6 +19,7 @@ public class UpdateStateUseCase implements UpdateStateUseCasePort {
     public void execute(final UpdateStateInput in) {
         final State target = stateRepositoryPort.findById(in.getId());
 
+        // Essa verificação só é feita caso o stateRepositoryPort.findById não retorne exceção, o que não é o caso.
         if (Objects.isNull(target)) {
             throw new EntityNotFoundException(State.class.getName(), in.getId());
         }

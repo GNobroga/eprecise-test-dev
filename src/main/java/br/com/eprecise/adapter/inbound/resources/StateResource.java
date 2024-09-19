@@ -134,7 +134,7 @@ public class StateResource {
     @Path("/{id}")
     public Response update(@PathParam("id") String id, @Valid UpdateStateRequestDTO request) {
         updateStateUseCasePort.execute(new UpdateStateInput(id, request.getName(), request.getAbbreviation()));
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @Operation(
