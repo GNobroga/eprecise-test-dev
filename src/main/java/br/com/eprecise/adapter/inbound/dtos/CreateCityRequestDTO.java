@@ -6,6 +6,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +16,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CreateCityRequestDTO {
-    
+
+    @Schema(
+        description = "Name of the city to be created",
+        example = "Los Angeles",
+        required = true
+    )
     @NotBlank(message = "The city name must not be empty")
     private String name;
 
+    @Schema(
+        description = "Abbreviation of the state where the city is located",
+        example = "CA",
+        required = true
+    )
     @NotBlank(message = "The state abbreviation must not be empty")
     @Size(min = 2, max = 10, message = "The state abbreviation must be between 2 and 10 characters")
     @Pattern(regexp = "^[A-Z]{2,10}$", message = "The state abbreviation must contain only uppercase letters and be between 2 and 10 characters")
     private String stateAbbreviation;
 
+    @Schema(
+        description = "Population of the city",
+        example = "4000000",
+        required = true
+    )
     @NotNull(message = "The population must not be null")
     @Positive(message = "The population must be a positive number")
     private Long population;

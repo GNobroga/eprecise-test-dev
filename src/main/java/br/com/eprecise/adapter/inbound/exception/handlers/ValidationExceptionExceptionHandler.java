@@ -11,15 +11,18 @@ import javax.ws.rs.ext.Provider;
 import br.com.eprecise.domain.exceptions.ResponseError;
 
 @Provider
-public class ValidationExceptionExceptionHandler implements ExceptionMapper<ValidationException> {
+public class ValidationExceptionExceptionHandler implements ExceptionMapper<ConstraintViolationException> {
 
     private static final String ERROR_NAME = "ValidationError";
 
     @Override
-    public Response toResponse(ValidationException exception) {
+    public Response toResponse(ConstraintViolationException exception) {
         final ResponseError responseError = ResponseError.builder().title(ERROR_NAME)
             .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
             .build();
+
+        exception.getConstraintViolations().forEach(constraint -> responseError.addMessage(constraint.getMessage()));
+        
         return Response
             .status(Response.Status.BAD_REQUEST)
             .entity(responseError)

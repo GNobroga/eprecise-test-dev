@@ -31,10 +31,10 @@ public class UpdateCityUseCase implements UpdateCityUseCasePort {
             throw new EntityNotFoundException("City not found with ID: " + in.getId());
         }
 
-        final State state = stateRepositoryPort.findById(in.getStateAbbreviation());
+        final State state = stateRepositoryPort.findByAbbreviation(in.getStateAbbreviation());
 
         if (Objects.isNull(state)) {
-            throw new EntityNotFoundException("Entity with abbreviation '" + in.getStateAbbreviation() + "' does not exist.");
+            throw new EntityNotFoundException("State with abbreviation '" + in.getStateAbbreviation() + "' does not exist.");
         }
 
         final ValidationHandler handler = new NotificationHandler();
@@ -45,14 +45,14 @@ public class UpdateCityUseCase implements UpdateCityUseCasePort {
             throw new DomainInvalidException(handler.getErrors());
         }
 
-        if (city.getName().equalsIgnoreCase(in.getName()) && cityRepositoryPort.existsByStateAbbreviationAndName(state.getAbbreviation(), in.getName())) {
+        if (!city.getName().equalsIgnoreCase(in.getName()) && cityRepositoryPort.existsByStateAbbreviationAndName(state.getAbbreviation(), in.getName())) {
             throw new EntityConflictException(
                 String.format("A city with the name '%s' already exists in the state with the abbreviation '%s'. Each state can only have one city with this name.",
                               in.getName(), state.getAbbreviation()));
         }
 
         city.setName(in.getName());
-        city.setStateId(state.getAbbreviation());
+        city.setStateId(state.getId().getUuid().toString());
         city.setPopulation(in.getPopulation());
         cityRepositoryPort.save(city);
     }

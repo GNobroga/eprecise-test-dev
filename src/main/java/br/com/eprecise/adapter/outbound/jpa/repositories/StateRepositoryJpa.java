@@ -8,5 +8,5 @@ import br.com.eprecise.adapter.outbound.jpa.entities.StateEntityJpa;
 
 public interface StateRepositoryJpa extends JpaRepository<StateEntityJpa, String> {
     boolean existsByAbbreviation(String abbreviation);
-    Optional<StateEntityJpa> findByAbbreviation(String abbreviation);
+    Optional<StateEntityJpa> findByAbbreviationIgnoreCase(String abbreviation);
 }

@@ -27,10 +27,10 @@ public class CreateCityUseCase implements CreateCityUseCasePort {
 
     @Override
     public CityIdOutput execute(final CreateCityInput in) {
-        final State state = stateRepositoryPort.findById(in.getStateAbbreviation());
+        final State state = stateRepositoryPort.findByAbbreviation(in.getStateAbbreviation());
 
         if (Objects.isNull(state)) {
-            throw new EntityNotFoundException("Entity with abbreviation '" + in.getStateAbbreviation() + "' does not exist.");
+            throw new EntityNotFoundException("State with abbreviation '" + in.getStateAbbreviation() + "' does not exist.");
         }
 
         final City city = City.create(in.getName(), state.getId().getUuid().toString(), in.getPopulation());
@@ -46,7 +46,7 @@ public class CreateCityUseCase implements CreateCityUseCasePort {
             throw new EntityConflictException("A city with the name '" + in.getName() + "' already exists in the state with the abbreviation '" + state.getAbbreviation() + "'. Each state can only have one city with this name.");
         }
 
-        final String id = cityRepositoryPort.save(city).getId().toString();
+        final String id = cityRepositoryPort.save(city).getId().getUuid().toString();
         return new CityIdOutput(id);
     }
     

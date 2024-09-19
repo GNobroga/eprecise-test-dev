@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import br.com.eprecise.adapter.outbound.jpa.entities.CityEntityJpa;
 
 public interface CityRepositoryJpa extends JpaRepository<CityEntityJpa, String> {
-    @Query("select count(c) > 0 from CityEntityJpa c join fetch c.state s where s.abbreviation = ?1 and c.name = ?2")
+    @Query("SELECT COUNT(c) > 0 FROM CityEntityJpa c WHERE c.state.abbreviation = ?1 AND c.name = ?2")
     boolean existsByStateAbbreviationAndName(String stateAbbreviation, String cityName);
 
     Page<CityEntityJpa> findByStateId(String stateId, Pageable pageable);

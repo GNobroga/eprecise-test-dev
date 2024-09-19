@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,6 +49,7 @@ public class CityRepositoryAdapter implements CityRepositoryPort {
     @PersistenceContext
     private EntityManager entityManager;
     
+    @Transactional
     @Override
     public City save(City record) {
         final CityEntityJpa entity = CityEntityJpa.from(record);
@@ -77,7 +79,6 @@ public class CityRepositoryAdapter implements CityRepositoryPort {
                         predicates.add(cb.like(cb.lower(join.get(targetFieldName).as(String.class)), "%" + equal.getValue().toLowerCase() + "%"));
                         continue;
                    } catch (Exception error) {
-                    System.out.println("OII");
                      throw new AttributeNotFoundException(equal.getFieldName());
                    }
                 }
@@ -111,6 +112,7 @@ public class CityRepositoryAdapter implements CityRepositoryPort {
         return cityRepositoryJpa.count();
     }
 
+    @Transactional
     @Override
     public void deleteById(String identifier) {
         cityRepositoryJpa.deleteById(findById(identifier).getId().getUuid().toString());

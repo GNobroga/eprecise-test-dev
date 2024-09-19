@@ -15,6 +15,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameters;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import br.com.eprecise.adapter.inbound.dtos.CreateStateRequestDTO;
@@ -34,10 +41,10 @@ import br.com.eprecise.domain.pagination.Page;
 import lombok.RequiredArgsConstructor;
 
 @Tag(
-    name = "States", 
-    description = "Permite realizar operações CRUD e consultas sobre a entidade 'State', incluindo criação, leitura, atualização e exclusão de registros."
+    name = "Estados", 
+    description = "Permite realizar operações CRUD e consultas sobre a entidade 'Estado', incluindo criação, leitura, atualização e exclusão de registros."
 )
-@Path("/v1/states")
+@Path("/api/v1/states")
 @RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
 public class StateResource {
@@ -52,11 +59,50 @@ public class StateResource {
 
     private final GetStateRecordCountUseCasePort getStateRecordCountUseCasePort;
 
+     
+    @Operation(summary = "Permite obter todos as Estados com paginação e filtros.")
+    @Parameters(
+        value = {
+            @Parameter(
+                name = "pageSize",
+                in = ParameterIn.QUERY,
+                description = "Tamanho da página",
+                example = "20",
+                required = false,
+                content = @Content(schema = @Schema(type = SchemaType.INTEGER, defaultValue = "20"))
+            ),
+            @Parameter(
+                name = "pageNumber",
+                in = ParameterIn.QUERY,
+                description = "Número da página",
+                example = "1",
+                required = false,
+                content = @Content(schema = @Schema(type = SchemaType.INTEGER, defaultValue = "1"))
+            ),
+            @Parameter(
+                name = "pageOrder",
+                in = ParameterIn.QUERY,
+                description = "Ordenar por: ASC ou DESC",
+                example = "ASC",
+                required = false,
+                content = @Content(schema = @Schema(type = SchemaType.STRING, defaultValue = "ASC"))
+            ),
+            @Parameter(
+                name = "like_filters",
+                in = ParameterIn.QUERY,
+                description = "Permite filtrar por atributo=valor",
+                example = "name=Espírito Santo,abbreviation=ES",
+                required = false,
+                content = @Content(schema = @Schema(type = SchemaType.STRING))
+            )
+        }
+    )
     @GET
     public Page<StateRecordOutput> getAll(@Context UriInfo uriInfo) {
        return getAllStateUseCasePort.execute(new SearchCriteria(ParamUtils.getParams(uriInfo.getQueryParameters())));
     }
 
+    @Operation(summary = "Permite obter a quantidade de Estados cadastradas.")
     @GET
     @Path("/count")
     public Response getCount() {
@@ -65,7 +111,9 @@ public class StateResource {
             .build();
     }
 
-
+    @Operation(
+        summary = "Permite criar um Estado"
+    )
     @POST
     public Response create(@Valid CreateStateRequestDTO request, @Context UriInfo uriInfo) {
         final StateIdOutput output = createStateUseCasePort.execute(new CreateStateInput(request.getName(), request.getAbbreviation()));
@@ -77,6 +125,9 @@ public class StateResource {
             .build();
     }
 
+    @Operation(
+        summary = "Permite atualizar um Estado"
+    )
     @PUT
     @Path("/{id}")
     public Response update(@PathParam("id") String id, @Valid UpdateStateRequestDTO request) {
@@ -84,6 +135,9 @@ public class StateResource {
         return Response.status(Response.Status.OK).build();
     }
 
+    @Operation(
+        summary = "Permite deletar um Estado"
+    )
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") String id) {

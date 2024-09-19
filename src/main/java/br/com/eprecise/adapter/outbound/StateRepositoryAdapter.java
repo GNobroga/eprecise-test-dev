@@ -99,9 +99,9 @@ public class StateRepositoryAdapter implements StateRepositoryPort {
     @Override
     public State findByAbbreviation(String abbreviation) {
         if (!existsByAbbreviation(abbreviation)) {
-            throw new EntityNotFoundException("Entity with abbreviation '" + abbreviation + "' does not exist.");
+            throw new EntityNotFoundException("State with abbreviation '" + abbreviation + "' does not exist.");
         }
-        return stateRepositoryJpa.findByAbbreviation(abbreviation)
+        return stateRepositoryJpa.findByAbbreviationIgnoreCase(abbreviation.toLowerCase())
             .map(StateEntityJpa::toDomain)
             .get();
     }
