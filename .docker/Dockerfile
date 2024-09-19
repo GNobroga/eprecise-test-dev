@@ -8,7 +8,7 @@ EXPOSE 8080
 
 ENTRYPOINT ["mvn", "quarkus:dev", "-Dquarkus.profile=local"]
 
-## Código antigo
+## Código antigo - O flyway não consegue encontrar as migrations ao empacotar o jar
 
 # FROM maven:3.8.1-openjdk-8-slim as builder
 
