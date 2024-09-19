@@ -152,6 +152,8 @@ Execute a aplicação em modo desenvolvimento:
     mvn quarkus:dev
 ```
 
+A aplicação irá rodar no endereço: `http://localhost:8080`
+
 ## Tecnologias
 
 - Java
