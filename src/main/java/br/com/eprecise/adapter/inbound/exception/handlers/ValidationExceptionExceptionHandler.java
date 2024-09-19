@@ -1,7 +1,6 @@
 package br.com.eprecise.adapter.inbound.exception.handlers;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

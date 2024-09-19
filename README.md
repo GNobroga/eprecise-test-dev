@@ -149,10 +149,19 @@ Execute a aplicação em modo desenvolvimento:
 - Utilize o comando Maven para rodar a aplicação Quarkus em modo desenvolvimento:
 
 ```bash
-    mvn quarkus:dev
+    ./mvnw quarkus:dev
 ```
 
 A aplicação irá rodar no endereço: `http://localhost:8080`
+
+
+## Swagger
+
+Link do Swagger para facilitar a leitura dos **Endpoints**.
+
+```bash
+    http://localhost:8080/swagger-ui/index.html
+```
 
 ## Tecnologias
 

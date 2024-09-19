@@ -2,8 +2,6 @@ package br.com.eprecise.application.usecases.city;
 
 import java.util.Objects;
 
-import javax.persistence.EntityExistsException;
-
 import br.com.eprecise.application.inbound.city.CreateCityUseCasePort;
 import br.com.eprecise.application.inbound.city.inputs.CreateCityInput;
 import br.com.eprecise.application.inbound.city.outputs.CityIdOutput;
@@ -13,9 +11,9 @@ import br.com.eprecise.domain.entities.city.City;
 import br.com.eprecise.domain.entities.state.State;
 import br.com.eprecise.domain.exceptions.DomainInvalidException;
 import br.com.eprecise.domain.exceptions.EntityConflictException;
+import br.com.eprecise.domain.exceptions.EntityNotFoundException;
 import br.com.eprecise.domain.validations.ValidationHandler;
 import br.com.eprecise.domain.validations.handlers.NotificationHandler;
-import br.com.eprecise.domain.exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
