@@ -3,12 +3,9 @@ package br.com.eprecise.adapter.inbound.resources;
 import java.net.URI;
 
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -35,8 +32,6 @@ import lombok.RequiredArgsConstructor;
     description = "Permite realizar operações CRUD e consultas sobre a entidade 'Cidade', incluindo criação, leitura, atualização e exclusão de registros."
 )
 @Path("/api/v1/cities")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 @RequiredArgsConstructor
 public class CityResource implements CityResourceAPI {
     
