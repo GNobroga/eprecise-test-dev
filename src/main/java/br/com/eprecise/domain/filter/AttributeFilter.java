@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Data
-public class AttributeFilterEqual {
+public class AttributeFilter {
     private final String fieldName;
     private final String value;
 }

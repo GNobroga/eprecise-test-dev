@@ -26,7 +26,7 @@ public class GetCityByStateIdUseCase implements GetCityByStateIdUseCasePort {
             throw new EntityNotFoundException("State with ID " + in.getStateId() + " not found.");
         }
         final Map<String, String> params = new HashMap<>();
-        params.put("like_filters", String.format("state.id=%s", in.getStateId()));
+        params.put(SearchCriteria.FILTER_KEY, String.format("state.id=%s", in.getStateId()));
 
         final SearchCriteria searchCriteria = new SearchCriteria(params);
         searchCriteria.setPagination(in.getPagination());

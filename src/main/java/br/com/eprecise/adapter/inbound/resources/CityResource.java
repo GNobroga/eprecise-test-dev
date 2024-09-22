@@ -98,7 +98,7 @@ public class CityResource {
                 content = @Content(schema = @Schema(type = SchemaType.STRING, defaultValue = "ASC"))
             ),
             @Parameter(
-                name = "like_filters",
+                name = SearchCriteria.FILTER_KEY,
                 in = ParameterIn.QUERY,
                 description = "Permite filtrar por atributo=valor",
                 example = "name=Rio Branco,state.name=Acre",
@@ -214,7 +214,7 @@ public class CityResource {
     public Response create(@Valid CreateCityRequestDTO request, @Context UriInfo uriInfo) {
           final CityIdOutput output = createCityUseCasePort.execute(new CreateCityInput(request.getName(), request.getStateAbbreviation(), request.getPopulation()));
         final URI uri = uriInfo.getAbsolutePathBuilder().
-            queryParam("like_filters", String.format("id=%s", output.getCityId()))
+            queryParam(SearchCriteria.FILTER_KEY, String.format("id=%s", output.getCityId()))
             .build();
         return Response
             .status(Response.Status.CREATED)

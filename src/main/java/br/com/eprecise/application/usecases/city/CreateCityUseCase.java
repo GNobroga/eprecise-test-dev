@@ -1,7 +1,5 @@
 package br.com.eprecise.application.usecases.city;
 
-import java.util.Objects;
-
 import br.com.eprecise.application.inbound.city.CreateCityUseCasePort;
 import br.com.eprecise.application.inbound.city.inputs.CreateCityInput;
 import br.com.eprecise.application.inbound.city.outputs.CityIdOutput;
@@ -25,11 +23,8 @@ public class CreateCityUseCase implements CreateCityUseCasePort {
 
     @Override
     public CityIdOutput execute(final CreateCityInput in) {
-        final State state = stateRepositoryPort.findByAbbreviation(in.getStateAbbreviation());
-
-        if (Objects.isNull(state)) {
-            throw new EntityNotFoundException("State with abbreviation '" + in.getStateAbbreviation() + "' does not exist.");
-        }
+        final State state = stateRepositoryPort.findByAbbreviation(in.getStateAbbreviation())
+            .orElseThrow(() -> new EntityNotFoundException("State with abbreviation '" + in.getStateAbbreviation() + "' does not exist."));
 
         final City city = City.create(in.getName(), state.getId().getUuid().toString(), in.getPopulation());
 
@@ -44,7 +39,7 @@ public class CreateCityUseCase implements CreateCityUseCasePort {
             throw new EntityConflictException("A city with the name '" + in.getName() + "' already exists in the state with the abbreviation '" + state.getAbbreviation() + "'. Each state can only have one city with this name.");
         }
 
-        final String id = cityRepositoryPort.save(city).getId().getUuid().toString();
+        final String id = cityRepositoryPort.save(city).get().getId().getUuid().toString();
         return new CityIdOutput(id);
     }
     

@@ -24,7 +24,7 @@ public class FindCityByNameUseCase implements FindCityByNameUseCasePort {
         }
 
         final Map<String, String> params = new HashMap<>();
-        params.put("like_filters", String.format("name=%s", in.getCityName()));
+        params.put(SearchCriteria.FILTER_KEY, String.format("name=%s", in.getCityName()));
 
         final SearchCriteria searchCriteria = new SearchCriteria(params);
         searchCriteria.setPagination(in.getPagination());

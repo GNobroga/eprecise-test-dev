@@ -9,6 +9,7 @@ import br.com.eprecise.application.inbound.state.outputs.StateRecordOutput;
 import br.com.eprecise.application.outbound.CityRepositoryPort;
 import br.com.eprecise.application.outbound.StateRepositoryPort;
 import br.com.eprecise.domain.entities.state.State;
+import br.com.eprecise.domain.exceptions.EntityNotFoundException;
 import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
 import br.com.eprecise.domain.pagination.Pagination;
@@ -26,7 +27,7 @@ public class GetAllCityUseCase implements GetAllCityUseCasePort {
         final Pagination pagination = in.getPagination();
         final List<CityRecordOutput> items = cityRepositoryPort.findAll(in).stream()
             .map(city -> {
-                final State state = stateRepositoryPort.findById(city.getStateId());
+                final State state = stateRepositoryPort.findById(city.getStateId()).orElseThrow(() -> new EntityNotFoundException("State with id '" + city.getStateId() + "' does not exist."));
                 return new CityRecordOutput(
                     city.getId().getUuid().toString(), 
                     city.getName(), 

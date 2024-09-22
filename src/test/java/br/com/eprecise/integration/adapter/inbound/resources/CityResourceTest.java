@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
 import br.com.eprecise.adapter.inbound.dtos.CreateCityRequestDTO;
+import br.com.eprecise.domain.filter.SearchCriteria;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -39,7 +40,7 @@ public class CityResourceTest {
     void shouldGetCitiesWhenMakeGetRequestWithFilters() {
         final String expectedCityName = "Cruzeiro do Sul";
         given()
-            .queryParam("like_filters", String.format("name=%s", expectedCityName))
+            .queryParam(SearchCriteria.FILTER_KEY, String.format("name=%s", expectedCityName))
         .when()
             .get("/api/v1/cities")
         .then()

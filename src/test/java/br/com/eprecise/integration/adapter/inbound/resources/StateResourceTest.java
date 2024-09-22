@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.eprecise.adapter.inbound.dtos.CreateStateRequestDTO;
 import br.com.eprecise.adapter.inbound.dtos.UpdateStateRequestDTO;
+import br.com.eprecise.domain.filter.SearchCriteria;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -59,7 +60,7 @@ public class StateResourceTest {
                 .body("stateId", notNullValue());
 
             given() 
-                .queryParam("like_filters", String.format("name=%s", createStateRequestDTO.getName()))
+                .queryParam(SearchCriteria.FILTER_KEY, String.format("name=%s", createStateRequestDTO.getName()))
                 .when()
                     .get("/api/v1/states")
                 .then()
@@ -97,7 +98,7 @@ public class StateResourceTest {
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
         given() 
-            .queryParam("like_filters", String.format("id=%s", targetId))
+            .queryParam(SearchCriteria.FILTER_KEY, String.format("id=%s", targetId))
             .when()
                 .get("/api/v1/states")
             .then()

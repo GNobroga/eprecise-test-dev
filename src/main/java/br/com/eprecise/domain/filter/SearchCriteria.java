@@ -12,12 +12,12 @@ import lombok.Data;
 @Data 
 public class SearchCriteria {
     
-    private List<AttributeFilterEqual> equalFilters;
+    private List<AttributeFilter> attributes;
     
     private Pagination pagination;
 
-    private static final String LIKE_FILTER_KEY = "like_filters";
-    private static final String LIKE_FILTER_DELIMITER = ",";
+    public static final String FILTER_KEY = "like_filters";
+    private static final String FILTER_DELIMITER = ",";
     private static final String KEY_VALUE_DELIMITER = "=";
 
     public SearchCriteria(Map<String, String> params) {
@@ -25,21 +25,19 @@ public class SearchCriteria {
             params = new HashMap<>();
         }
         pagination = Pagination.create(params);
-        extractEqualFilters(params);
+        extractAttributes(params);
     }
 
-    private void extractEqualFilters(final Map<String, String> params) {
-        if (!params.containsKey(LIKE_FILTER_KEY)) {
-            this.equalFilters = new ArrayList<>();
+    private void extractAttributes(final Map<String, String> params) {
+        if (!params.containsKey(FILTER_KEY)) {
+            this.attributes = new ArrayList<>();
             return;
         }
-        String equalFiltersStr = params.get(LIKE_FILTER_KEY);
-        
-        // equal_filters=name=Gabriel,name=Pedro
+        String attributesStr = params.get(FILTER_KEY);
 
-        equalFilters = new ArrayList<>();
+        attributes = new ArrayList<>();
 
-        for (String equalFilterParsed: equalFiltersStr.split(LIKE_FILTER_DELIMITER)) {
+        for (String equalFilterParsed: attributesStr.split(FILTER_DELIMITER)) {
             String[] equalFilter = equalFilterParsed.split(KEY_VALUE_DELIMITER );
 
             if (equalFilter.length != 2) {
@@ -50,7 +48,7 @@ public class SearchCriteria {
             String value = equalFilter[1];
 
             if (!fieldName.trim().isEmpty() && !value.trim().isEmpty()) {
-                equalFilters.add(new AttributeFilterEqual(fieldName, value));
+                attributes.add(new AttributeFilter(fieldName, value));
             }
         }
     }

@@ -1,7 +1,5 @@
 package br.com.eprecise.application.usecases.state;
 
-import java.util.Objects;
-
 import br.com.eprecise.application.inbound.state.UpdateStateUseCasePort;
 import br.com.eprecise.application.inbound.state.inputs.UpdateStateInput;
 import br.com.eprecise.application.outbound.StateRepositoryPort;
@@ -17,12 +15,7 @@ public class UpdateStateUseCase implements UpdateStateUseCasePort {
 
     @Override
     public void execute(final UpdateStateInput in) {
-        final State target = stateRepositoryPort.findById(in.getId());
-
-        // Essa verificação só é feita caso o stateRepositoryPort.findById não retorne exceção, o que não é o caso.
-        if (Objects.isNull(target)) {
-            throw new EntityNotFoundException(State.class.getName(), in.getId());
-        }
+        final State target = stateRepositoryPort.findById(in.getId()).orElseThrow(() -> new EntityNotFoundException(State.class.getName(), in.getId()));
 
         if (!target.getAbbreviation().equalsIgnoreCase(in.getAbbreviation()) && stateRepositoryPort.existsByAbbreviation(in.getAbbreviation())) {
             throw new AbbreviationAlreadyExistsException(in.getAbbreviation());

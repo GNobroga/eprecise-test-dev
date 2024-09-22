@@ -33,7 +33,7 @@ public class CreateStateUseCase implements CreateStateUseCasePort {
             throw new DomainInvalidException(handler.getErrors());
         }
 
-        final String id = stateRepositoryPort.save(state).getId().getUuid().toString();
+        final String id = stateRepositoryPort.save(state).get().getId().getUuid().toString();
         return new StateIdOutput(id);
     }
     
