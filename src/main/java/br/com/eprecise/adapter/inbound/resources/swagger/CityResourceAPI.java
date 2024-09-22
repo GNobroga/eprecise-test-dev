@@ -1,15 +1,18 @@
 package br.com.eprecise.adapter.inbound.resources.swagger;
 
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
@@ -25,6 +28,8 @@ import br.com.eprecise.application.inbound.city.outputs.CityRecordOutput;
 import br.com.eprecise.domain.filter.SearchCriteria;
 import br.com.eprecise.domain.pagination.Page;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface CityResourceAPI {
     @Operation(summary = "Permite obter todas as Cidades com paginação e filtros.")
     @Parameters(
