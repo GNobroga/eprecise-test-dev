@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class UUIDIdentifier implements ValueObject {
 
-    private UUID uuid;
+    private final UUID uuid;
 
     public UUIDIdentifier() {
         this.uuid = UUID.randomUUID();
